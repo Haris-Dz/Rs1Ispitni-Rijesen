@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FIT_Api_Examples")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b1c7168781be8825131454a4a358068324a6b837")]
 [assembly: System.Reflection.AssemblyProductAttribute("FIT_Api_Examples")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FIT_Api_Examples")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

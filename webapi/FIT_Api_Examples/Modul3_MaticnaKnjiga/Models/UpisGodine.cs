@@ -28,6 +28,6 @@ namespace FIT_Api_Examples.Modul3_MaticnaKnjiga.Models
         public bool IsObnova { get; set; }
         public DateTime DatumUpisaZimski { get; set; }
         public DateTime? DatumOvjere { get; set; }
-        public string Napomena { get; set; }
+        public string? Napomena { get; set; }
     }
 }

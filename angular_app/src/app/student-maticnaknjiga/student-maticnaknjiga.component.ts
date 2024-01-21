@@ -20,17 +20,8 @@ export class StudentMaticnaknjigaComponent implements OnInit {
   constructor(private httpKlijent: HttpClient, private route: ActivatedRoute) {}
   isVidljivoForma:boolean;
   idStudenta= this.route.snapshot.params["id"];
-  ovjeriLjetni(s:any) {
+  isVidljivoOvjeri: boolean;
 
-  }
-
-  upisLjetni(s:any) {
-
-  }
-
-  ovjeriZimski(s:any) {
-
-  }
   pripremi(){
     this.pripremiZaDodavanje={
       student_id: this.idStudenta,
@@ -39,7 +30,7 @@ export class StudentMaticnaknjigaComponent implements OnInit {
       akademska_godina_id:1,
       godinaStudija:1,
       isObnova:false,
-      datumUpisaZimski:DatePipe,
+      datumUpisaZimski:new Date(),
       datumOvjere:null,
       evidentirao_korisnik:this.podaci.evidentirao_korisnik,
       cijenaSkolarine:0
@@ -47,11 +38,31 @@ export class StudentMaticnaknjigaComponent implements OnInit {
   }
 
   upisiSemestar(s:any){
-
+    for (let p of this.podaci.listaUpisi) {
+      if (p.godinaStudija == this.pripremiZaDodavanje.godinaStudija && this.pripremiZaDodavanje.isObnova == false) {
+        porukaError("Moguce dodati istu godinu studija samo ako je obnova")
+        return
+      }
+    }
     this.httpKlijent.post(MojConfig.adresa_servera+ "/MaticnaKnjiga/Add", this.pripremiZaDodavanje,MojConfig.http_opcije()).subscribe((x:any)=>{
         porukaSuccess("Zimski Semestar upisan");
 
 
+      this.fetchMaticnaKnjigaPodaci();
+      this.pripremiZaDodavanje = null;
+    })
+  }
+  pripremiZaEdit(idsemestra:number){
+  this.pripremiZaDodavanje = {
+    id: idsemestra,
+    napomena:"",
+    datumOvjere:new Date()
+  }
+}
+  ovjeriSemestar(){
+
+    this.httpKlijent.put(MojConfig.adresa_servera+ "/MaticnaKnjiga/Ovjeri", this.pripremiZaDodavanje,MojConfig.http_opcije()).subscribe((x:any)=>{
+      porukaSuccess("Semestar ovjeren");
       this.fetchMaticnaKnjigaPodaci();
       this.pripremiZaDodavanje = null;
     })

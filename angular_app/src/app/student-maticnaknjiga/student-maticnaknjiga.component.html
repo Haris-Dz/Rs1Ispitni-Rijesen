@@ -51,7 +51,7 @@
 
     <td>{{p.evidentirao_korisnik}}</td>
     <td>
-      <a class="btn btn-link">Ovjeri zimski semestar </a> <br>
+      <a class="btn btn-link" (click)="[isVidljivoOvjeri = !isVidljivoOvjeri,pripremiZaEdit(p.upisGodina_id)]">Ovjeri zimski semestar </a> <br>
 
     </td>
   </tr>
@@ -76,7 +76,7 @@
         </div>
         <div class="mb-3">
           <label class="form-label">Godina studija</label>
-          <input class="form-control"[(ngModel)]="pripremiZaDodavanje.godinaStudija" placeholder="Godina studija"/>
+          <input class="form-control" [(ngModel)]="pripremiZaDodavanje.godinaStudija" placeholder="Godina studija"/>
         </div>
 
         <div class="mb-3">
@@ -94,13 +94,39 @@
 
         <div class="mb-3 form-check">
           <input type="checkbox" class="form-check-input" [(ngModel)]="pripremiZaDodavanje.isObnova" placeholder="Obnova godine" />
-          <label class="form-check-label">Obnova godine</label>
+          <label class="form-check-label" (click)="pripremiZaDodavanje.isObnova=!pripremiZaDodavanje.isObnova">Obnova godine</label>
         </div>
 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="isVidljivoForma=!isVidljivoForma" >Close</button>
         <button type="button" class="btn btn-primary" (click)="[upisiSemestar(pripremiZaDodavanje),isVidljivoForma=!isVidljivoForma]" >Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isVidljivoOvjeri" class="modal fade show" id="eexampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabell">Ovjera </h5>
+        <button type="button" (click)="isVidljivoOvjeri=!isVidljivoOvjeri" class="btn-close" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Datum Ovjere</label>
+          <input class="form-control" [(ngModel)]="pripremiZaDodavanje.datumOvjere" type="date"  placeholder="Datum" >
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Napomena</label>
+          <input class="form-control" [(ngModel)]="pripremiZaDodavanje.napomena" type="text"  placeholder="Napomena" />
+        </div>
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="isVidljivoOvjeri=!isVidljivoOvjeri" >Close</button>
+        <button type="button" class="btn btn-primary" (click)="[isVidljivoOvjeri=!isVidljivoOvjeri,ovjeriSemestar()]" >Save changes</button>
       </div>
     </div>
   </div>

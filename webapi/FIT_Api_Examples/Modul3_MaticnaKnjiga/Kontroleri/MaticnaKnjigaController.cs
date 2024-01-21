@@ -88,6 +88,23 @@ namespace FIT_Api_Examples.Modul3_MaticnaKnjiga.Kontroleri
 
             return Ok(podaci);
         }
+        [HttpPut]
+        public ActionResult Ovjeri([FromBody] MaticnaKnjigaOvjeriVM request)
+        {
+            if (!HttpContext.GetLoginInfo().isLogiran)
+                return BadRequest("nije logiran");
+
+            var evidentirao = _dbContext.KorisnickiNalog.Find(HttpContext.GetLoginInfo().korisnickiNalog.id);
+
+            var podaci = _dbContext.UpisGodine.Find(request.Id);
+            podaci.KorisnickiNalogId = evidentirao.id;
+            podaci.Napomena = request.Napomena;
+            podaci.DatumOvjere = request.datumOvjere;
+
+            _dbContext.SaveChanges();
+
+            return Ok(podaci);
+        }
 
     }
 }
